@@ -1,13 +1,11 @@
 package com.codingforfun.listmaker
 
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class ListSelectionRecyclerViewAdapter:RecyclerView.Adapter<ListSelectionViewHolder>() {
-    private val listTitles = arrayOf("Shopping List", "Chores", "Android Tutorials")
-
+class ListSelectionRecyclerViewAdapter(private val lists: ArrayList<TaskList>):
+    RecyclerView.Adapter<ListSelectionViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListSelectionViewHolder {
         /*
             First, it uses a LayoutInflater object to create a layout programmatically. It uses
@@ -27,7 +25,7 @@ class ListSelectionRecyclerViewAdapter:RecyclerView.Adapter<ListSelectionViewHol
     }
 
     override fun getItemCount(): Int {
-        return listTitles.size
+        return lists.size
     }
 
     /*
@@ -38,7 +36,17 @@ class ListSelectionRecyclerViewAdapter:RecyclerView.Adapter<ListSelectionViewHol
     */
     override fun onBindViewHolder(holder: ListSelectionViewHolder, position: Int) {
         holder.listPosition.text = (position + 1).toString()
-        holder.listTitle.text = listTitles[position]
+        holder.listTitle.text = lists.get(position).name
+
+    }
+
+    fun addList(list: TaskList) {
+        //1
+        lists.add(list)
+
+        //2
+        notifyItemInserted(lists.size-1)
+
     }
 
 }
